@@ -1,0 +1,14 @@
+base    conc=1  out=512 agg=96.1tok/s   decode/req=111.9tok/s   TTFT=753ms      acc_rate=0.809  acc_len=3.43
+base    conc=8  out=3446        agg=564.9tok/s  decode/req=104.4tok/s   TTFT=519ms      acc_rate=0.780  acc_len=3.34
+base    conc=32 out=14144       agg=1727.7tok/s decode/req=71.2tok/s    TTFT=213ms      acc_rate=0.777  acc_len=3.33
+mtp     conc=1  out=512 agg=109.5tok/s  decode/req=110.9tok/s   TTFT=56ms       acc_rate=0.809  acc_len=3.43
+mtp     conc=8  out=3456        agg=598.5tok/s  decode/req=104.5tok/s   TTFT=204ms      acc_rate=0.792  acc_len=3.38
+mtp     conc=32 out=14402       agg=1736.4tok/s decode/req=70.3tok/s    TTFT=257ms      acc_rate=0.753  acc_len=3.26
+base    conc=1  out=512 agg=109.5tok/s  decode/req=111.1tok/s   TTFT=66ms       acc_rate=0.809  acc_len=3.43
+base    conc=8  out=3456        agg=602.7tok/s  decode/req=105.0tok/s   TTFT=184ms      acc_rate=0.792  acc_len=3.38
+base    conc=32 out=14311       agg=1721.4tok/s decode/req=71.5tok/s    TTFT=302ms      acc_rate=0.764  acc_len=3.29
+mtp     conc=1  out=512 agg=109.6tok/s  decode/req=111.7tok/s   TTFT=88ms       acc_rate=0.809  acc_len=3.43
+mtp     conc=8  out=3456        agg=601.8tok/s  decode/req=105.1tok/s   TTFT=193ms      acc_rate=0.792  acc_len=3.38
+mtp     conc=32 out=14020       agg=1752.1tok/s decode/req=71.5tok/s    TTFT=258ms      acc_rate=0.775  acc_len=3.33base	conc=1	out=512	agg=56.0tok/s	decode/req=56.6tok/s	TTFT=89ms	acc_rate=nan	acc_len=nan
+base	conc=8	out=3602	agg=373.3tok/s	decode/req=54.4tok/s	TTFT=191ms	acc_rate=nan	acc_len=nan
+base	conc=32	out=13931	agg=1187.6tok/s	decode/req=47.1tok/s	TTFT=384ms	acc_rate=nan	acc_len=nan

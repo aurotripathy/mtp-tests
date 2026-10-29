@@ -1,0 +1,55 @@
+```python
+"""
+Parse ISO-8601 timestamps without using the datetime module.
+
+This module provides a function to parse ISO-8601 formatted timestamps
+and return a tuple of (year, month, day, hour, minute, second, microsecond, tz_offset_minutes).
+"""
+
+import re
+from typing import Tuple, Optional
+
+
+def parse_iso8601(timestamp: str) -> Tuple[int, int, int, int, int, int, int, Optional[int]]:
+    """
+    Parse an ISO-8601 timestamp string without using the datetime module.
+    
+    Supported formats:
+    - YYYY-MM-DD
+    - YYYY-MM-DDTHH:MM:SS
+    - YYYY-MM-DDTHH:MM:SS.ssssss
+    - YYYY-MM-DDTHH:MM:SS.ssssss+HH:MM
+    - YYYY-MM-DDTHH:MM:SS.ssssss-HH:MM
+    - YYYY-MM-DDTHH:MM:SS.ssssssZ
+    - YYYY-MM-DDTHH:MM:SS+HH:MM
+    - YYYY-MM-DDTHH:MM:SS-HH:MM
+    - YYYY-MM-DDTHH:MM:SSZ
+    
+    Args:
+        timestamp: An ISO-8601 formatted timestamp string.
+        
+    Returns:
+        A tuple of (year, month, day, hour, minute, second, microsecond, tz_offset_minutes)
+        where tz_offset_minutes is None if no timezone offset is present,
+        or the offset in minutes (positive for east of UTC, negative for west).
+        
+    Raises:
+        ValueError: If the timestamp is not in a valid ISO-8601 format.
+    """
+    if not isinstance(timestamp, str):
+        raise ValueError("Timestamp must be a string")
+    
+    timestamp = timestamp.strip()
+    
+    if not timestamp:
+        raise ValueError("Empty timestamp string")
+    
+    # Define the regex pattern for ISO-8601 timestamps
+    # Date part: YYYY-MM-DD
+    # Optional time part: T HH:MM:SS
+    # Optional fractional seconds: .ssssss (1-6 digits)
+    # Optional timezone: Z or +HH:MM or -HH:MM
+    
+    pattern = re.compile(
+        r'^'
+        r'(?P<year>\d
