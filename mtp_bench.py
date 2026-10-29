@@ -1,5 +1,37 @@
-#!/usr/bin/env python3                                                                                                                                     
-# usage: mtp_bench.py BASE_URL CONCURRENCY TAG                                                                                                             
+#!/usr/bin/env python3
+"""Benchmark a running vLLM server, with or without MTP speculative decoding.
+
+Usage:
+    python mtp_bench.py BASE_URL CONCURRENCY TAG
+
+Example:
+    python mtp_bench.py http://localhost:8000 8 mtp_k3
+
+What it does
+    1. Read the served model id from GET /v1/models.
+    2. Take CONCURRENCY prompts from a fixed set of eight seeds (the list
+       repeats once CONCURRENCY is greater than 8).
+    3. Send them together as greedy chat completions (temperature 0, seed 0,
+       thinking off) and time each one.
+    4. Subtract vLLM's /metrics counters from before the run to after it.
+    5. Print one tab-separated row and append that same row to results.tsv.
+       At CONCURRENCY 1, also write the first completion to out_<TAG>_c1.txt
+       so a baseline and an MTP run can be diffed.
+
+max_tokens=512 caps generated tokens only. The seeds are short (about 20-40
+tokens) and are not limited by that setting. out=512 at concurrency 1 means
+the reply hit the cap; a smaller total at higher concurrency means some
+replies stopped at end-of-sequence first.
+
+Row columns
+    out          sum of completion tokens
+    agg          out / wall-clock seconds
+    decode/req   mean per request of completion_tokens / time after first token
+    TTFT         mean time to first content token, in milliseconds
+    acc_rate     accepted draft tokens / draft tokens (nan if spec decode is off)
+    acc_len      1 + accepted_tokens / num_drafts
+                 mean tokens emitted per verify step (nan if spec decode is off)
+"""
 import sys, time, json, re, requests, concurrent.futures as cf
 BASE, CONC, TAG = sys.argv[1].rstrip("/"), int(sys.argv[2]), sys.argv[3]
 MODEL = requests.get(f"{BASE}/v1/models").json()["data"][0]["id"]
